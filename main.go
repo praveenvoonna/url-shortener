@@ -1,8 +1,9 @@
 package main
 
 import (
+	"URL-Shortener-Infra-Cloud/handlers"
+
 	"github.com/gin-gonic/gin"
-	"github.com/praveenvoonna/URL-Shortener-Infra-Cloud/handlers"
 )
 
 func main() {
