@@ -1,9 +1,16 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
 func RedirectToURL(c *gin.Context) {
-	// TODO URL redirection logic here
+	shortened := c.Param("url")
+	if original, exists := urlMap[shortened]; exists {
+		c.Redirect(http.StatusMovedPermanently, original)
+		return
+	}
+	c.JSON(http.StatusNotFound, gin.H{"error": "URL not found"})
 }
