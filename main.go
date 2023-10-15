@@ -13,6 +13,7 @@ func main() {
 	r.POST("/shorten", handlers.ShortenURL)
 	r.GET("/:url", handlers.RedirectToURL)
 	r.GET("/shortenedurls", handlers.GetShortenedURLs)
+	r.GET("/metrices", handlers.GetTopDomains)
 
 	// Run the server
 	r.Run(":8080")
