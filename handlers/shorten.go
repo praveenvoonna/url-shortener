@@ -8,22 +8,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var urlMap, shortenedUrlMap, domainCounts = make(map[string]string), make(map[string]string), make(map[string]int)
+var UrlMap, ShortenedUrlMap, DomainCounts = make(map[string]string), make(map[string]string), make(map[string]int)
 
 func ShortenURL(c *gin.Context) {
 	var json struct {
 		URL string `json:"url"`
 	}
 	if err := c.ShouldBindJSON(&json); err == nil {
-		if shortened, exists := urlMap[json.URL]; exists {
+		if shortened, exists := UrlMap[json.URL]; exists {
 			c.JSON(http.StatusOK, gin.H{json.URL: shortened})
 			return
 		}
 		shortened := generateRandomString(6)
-		urlMap[json.URL] = shortened
-		shortenedUrlMap[shortened] = json.URL
+		UrlMap[json.URL] = shortened
+		ShortenedUrlMap[shortened] = json.URL
 
-		// Extract domain
 		u, err := url.Parse(json.URL)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid URL"})
@@ -31,8 +30,7 @@ func ShortenURL(c *gin.Context) {
 		}
 		domain := u.Host
 
-		// Update domain count
-		domainCounts[domain]++
+		DomainCounts[domain]++
 
 		c.JSON(http.StatusOK, gin.H{json.URL: shortened})
 	} else {

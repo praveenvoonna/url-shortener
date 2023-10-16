@@ -8,7 +8,7 @@ import (
 
 func RedirectToURL(c *gin.Context) {
 	shortened := c.Param("url")
-	if original, exists := shortenedUrlMap[shortened]; exists {
+	if original, exists := ShortenedUrlMap[shortened]; exists {
 		c.Redirect(http.StatusMovedPermanently, original)
 		return
 	}

@@ -14,7 +14,7 @@ func GetTopDomains(c *gin.Context) {
 	}
 
 	var pairs []Pair
-	for k, v := range domainCounts {
+	for k, v := range DomainCounts {
 		pairs = append(pairs, Pair{k, v})
 	}
 

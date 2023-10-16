@@ -7,5 +7,5 @@ import (
 )
 
 func GetShortenedURLs(c *gin.Context) {
-	c.JSON(http.StatusOK, urlMap)
+	c.JSON(http.StatusOK, UrlMap)
 }
