@@ -22,9 +22,10 @@ func GetTopDomains(c *gin.Context) {
 		return pairs[i].Value > pairs[j].Value
 	})
 
-	topDomains := make(map[string]int)
-	for i := 0; i < 3 && i < len(pairs); i++ {
-		topDomains[pairs[i].Key] = pairs[i].Value
+	domSize := min(3, len(pairs))
+	topDomains := make([]Pair, 0)
+	for i := 0; i < domSize; i++ {
+		topDomains = append(topDomains, pairs[i])
 	}
 
 	c.JSON(http.StatusOK, topDomains)
